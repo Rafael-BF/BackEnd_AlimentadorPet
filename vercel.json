@@ -14,5 +14,5 @@
     ],
     "env": {
         "DATABASE_URL": "@database-url"
-      }
+    }
   }
