@@ -5,27 +5,29 @@ import { getNextHour } from "../utils/getNextHour";
 const prisma = new PrismaClient();
 
 export const getDevices = async (req: Request, res: Response) => {
-    const { email } = req.body;    
+    const { email } = req.body;
     const devices = await prisma.device.findMany();
     res.json(devices);
 };
 
 export const getHour = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { mac } = req.params;
 
-    const device = await prisma.device.findFirst({ where: { id } });
+    const device = await prisma.device.findFirst({
+        where: { macAddress: mac },
+    });
 
     if (!device) {
         return res.status(404).json({ error: "Device not found" });
     }
 
     const horario = getNextHour(device.hourFeed);
-    res.json({ horario  , doorTime : device.doorTime});
+    res.json({ horario, doorTime: device.doorTime });
 };
 
 export const getDevice = async (req: Request, res: Response) => {
     const { email } = req.params;
-   
+
     const device = await prisma.device.findMany({ where: { email } });
     if (device) {
         res.json(device);
@@ -36,8 +38,10 @@ export const getDevice = async (req: Request, res: Response) => {
 
 //comentario teste
 export const getDeviceById = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const device = await prisma.device.findFirst({ where: { macAddress: id } });
+    const { mac } = req.params;
+    const device = await prisma.device.findFirst({
+        where: { macAddress: mac },
+    });
     if (device) {
         res.json(device);
     } else {
@@ -46,7 +50,8 @@ export const getDeviceById = async (req: Request, res: Response) => {
 };
 
 export const createDevice = async (req: Request, res: Response) => {
-    const { name, description, email, image, hourFeed, doorTime, macAddress } = req.body;
+    const { name, description, email, image, hourFeed, doorTime, macAddress } =
+        req.body;
 
     const newDevice = await prisma.device.create({
         data: {
