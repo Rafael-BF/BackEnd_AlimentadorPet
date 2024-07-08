@@ -36,7 +36,7 @@ export const getDevice = async (req: Request, res: Response) => {
 
 export const getDeviceById = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const device = await prisma.device.findFirst({ where: { id } });
+    const device = await prisma.device.findFirst({ where: { macAddress: id } });
     if (device) {
         res.json(device);
     } else {
@@ -45,11 +45,12 @@ export const getDeviceById = async (req: Request, res: Response) => {
 };
 
 export const createDevice = async (req: Request, res: Response) => {
-    const { name, description, email, image, hourFeed, doorTime } = req.body;
+    const { name, description, email, image, hourFeed, doorTime, macAddress } = req.body;
 
     const newDevice = await prisma.device.create({
         data: {
             name,
+            macAddress,
             description,
             email,
             image,
