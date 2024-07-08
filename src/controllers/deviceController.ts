@@ -11,10 +11,10 @@ export const getDevices = async (req: Request, res: Response) => {
 };
 
 export const getHour = async (req: Request, res: Response) => {
-    const { mac } = req.params;
+    const { macAddress } = req.params;
 
     const device = await prisma.device.findFirst({
-        where: { macAddress: mac },
+        where: { macAddress },
     });
 
     if (!device) {
