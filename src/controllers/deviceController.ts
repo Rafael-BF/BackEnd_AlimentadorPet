@@ -34,6 +34,7 @@ export const getDevice = async (req: Request, res: Response) => {
     }
 };
 
+//comentario teste
 export const getDeviceById = async (req: Request, res: Response) => {
     const { id } = req.params;
     const device = await prisma.device.findFirst({ where: { macAddress: id } });
