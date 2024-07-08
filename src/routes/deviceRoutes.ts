@@ -14,7 +14,7 @@ const router = Router();
 router.get("/", getDevices);
 router.get("/proximo-horario/:id",getHour)
 router.get("/:email", getDevice);
-router.get("/getByid/:id", getDeviceById);
+router.get("/getByMacAdress/:mac", getDeviceById);
 router.post("/create", createDevice);
 router.put("/:id", updateDevice);
 router.delete("/:id", deleteDevice);
