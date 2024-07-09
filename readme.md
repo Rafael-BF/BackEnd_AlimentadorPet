@@ -20,13 +20,16 @@ Atualiza o reservatório de alimentos para um dispositivo identificado pelo ende
 - **Params**
   - `macAddress` (string): O endereço MAC do dispositivo.
 - **Body**
-  ```json
-  {
-    "amountFood": "VAZIO" OU "METADE" OU "CHEIO"
-  }
+   ```
+    {
+     "amountFood": "VAZIO" | "METADE" | "CHEIO"
+    }
+   ```
 #### Response
 
--   **Status:** 200 OK
+-   **Status:** 200 OK ✔️
+
+---
 
 ### GET `/`
 
@@ -34,7 +37,9 @@ Busca todos os dispositivos.
 
 #### Response
 
--   **Status:** 200 OK
+-   **Status:** 200 OK ✔️
+
+---
 
 ### GET `/proximo-horario/:id`
 
@@ -47,7 +52,9 @@ Busca o próximo horário de alimentação cadastrado para um dispositivo identi
 
 #### Response
 
--   **Status:** 200 OK
+-   **Status:** 200 OK ✔️
+
+---
 
 ### GET `/:email`
 
@@ -60,8 +67,9 @@ Busca um dispositivo pelo email cadastrado.
 
 #### Response
 
--   **Status:** 200 OK
+-   **Status:** 200 OK ✔️
 
+---
 
 ### GET `/getByMacAddress/:mac`
 
@@ -74,8 +82,9 @@ Busca um dispositivo pelo endereço MAC.
 
 #### Response
 
--   **Status:** 200 OK
+-   **Status:** 200 OK ✔️
 
+---
 
 ### POST `/create`
 
@@ -84,12 +93,8 @@ Cria um novo dispositivo.
 #### Request
 
 -   **Body**
-    
-    json
-    
-    Copiar código
-    
-    `{
+  ```
+{
       "name": string,
       "macAdress": string,
       "description": string,
@@ -98,12 +103,14 @@ Cria um novo dispositivo.
       "hourFeed": string
 	  "doorTime": string
 	  "amountFood": string
-    }` 
+    }
+```  
     
-
 #### Response
 
--   **Status:** 201 Created
+-   **Status:** 201 Created ✔️
+
+---
 
 ### PUT `/:id`
 
@@ -117,7 +124,9 @@ Atualiza um dispositivo identificado pelo ID.
 
 #### Response
 
--   **Status:** 200 OK
+-   **Status:** 200 OK ✔️
+
+---
 
 ### DELETE `/:id`
 
@@ -149,7 +158,9 @@ Deleta um dispositivo identificado pelo ID.
     
     Copiar código
     
-    `https://github.com/Rafael-BF/BackEnd_AlimentadorPet` 
+    ```
+	https://github.com/Rafael-BF/BackEnd_AlimentadorPet
+    ``` 
     
 2.  Instale as dependências
     
@@ -157,17 +168,20 @@ Deleta um dispositivo identificado pelo ID.
     
     Copiar código
     
-    `npm install
+    ```
+    npm install
     # ou
-    yarn install` 
+    yarn install
+    ``` 
     
 3.  Configure as variáveis de ambiente Crie um arquivo `.env` no diretório raiz e adicione o seguinte:
     
     env
     
     Copiar código
-    
-    `DATABASE_URL="your-mongodb-connection-string"` 
+    ```
+	DATABASE_URL="your-mongodb-connection-string"
+    ``` 
     
 4.  Execute as migrações do Prisma
     
@@ -175,27 +189,40 @@ Deleta um dispositivo identificado pelo ID.
     
     Copiar código
     
-    `npx prisma generate`
-    `npx prisma db push` 
+    ```
+	npx prisma generate
+    ```
+    ```
+	npx prisma db push
+    ```
     
-5.  Inicie o servidor
+6.  Inicie o servidor
     
     bash
     
     Copiar código
-    
-    `npm run dev
-    # ou
-    yarn dev` 
-    
-
+    ```
+	npm run dev
+    ```
+---
 ## Esquema do Prisma
 
 prisma
 
 Copiar código
 
-`model Device {
+```prisma
+// Data source
+datasource db {
+  provider = "mongoDB"
+  url      = env("DATABASE_URL")
+}
+
+// Generator
+generator client {
+  provider = "prisma-client-js"
+}
+model Device {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
@@ -207,7 +234,10 @@ Copiar código
   macAddress  String
   createdAt   DateTime @default(now())
   updateAt    DateTime @updatedAt
-}` 
+}
+```
+
+---
 
 ## Deployment
 
@@ -219,7 +249,7 @@ Este projeto está licenciado sob a licença MIT.
 
 ## Contact
 
-Para qualquer dúvida ou problema, entre em contato pelo email [your-email@example.com].
+Para qualquer dúvida ou problema, entre em contato pelo email [projetoappet@gmail.com].
 
 perl
 
