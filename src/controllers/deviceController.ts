@@ -87,6 +87,27 @@ export const updateDevice = async (req: Request, res: Response) => {
     res.json(updatedDevice);
 };
 
+export const updateReservoir = async (req: Request, res: Response) => {
+    const { macAddress } = req.params;
+    const { amountFood } = req.body;
+
+    console.log(macAddress,amountFood)
+
+    try {
+        const updatedDevice = await prisma.device.updateMany({
+            where: { macAddress: macAddress },
+            data: {
+                amountFood,
+            },
+        });
+
+        res.json(updatedDevice);
+    } catch (error) {
+        console.error("Error updating device:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
 export const deleteDevice = async (req: Request, res: Response) => {
     const { id } = req.params;
 
